@@ -89,6 +89,12 @@ python run_bungeenerf.py --data-root /path/to/bungeenerf --output-root /path/to/
 
 同协议 Octree-GS 平均 PSNR 为 28.2081 dB、Anchor 为 1,070,795。SR-GS 平均 PSNR 提高 0.4241 dB，Anchor 减少 17.29%。
 
+### 效果对比
+
+![BungeeNeRF 效果对比：GT、Octree-GS 与本文方法](assets/效果对比.png)
+
+从左到右分别为 GT、Octree-GS 和本文方法（SR-GS）；各行展示 Pompidou、Hollywood 和 Quebec 的不同视角，红框标出局部放大区域。
+
 ## 许可与致谢
 
 本项目沿用 [Gaussian-Splatting License](LICENSE.md)，用于非商业研究与评估。第三方代码保留其原有版权和许可。
