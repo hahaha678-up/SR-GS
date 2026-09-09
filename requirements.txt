@@ -1,0 +1,12 @@
+setuptools==75.1.0
+numpy==1.23.5
+scipy==1.10.1
+Pillow==10.4.0
+plyfile==1.0.3
+lpips==0.1.4
+einops==0.8.1
+jaxtyping==0.2.19
+colorama==0.4.6
+tqdm==4.67.3
+wandb==0.23.0
+opencv-python>=4.8,<4.12
