@@ -36,7 +36,12 @@ CUDA 扩展源码随仓库提供，无需初始化 Git 子模块。请使用本�
 
 ## 数据准备
 
-采用 [BungeeNeRF](https://github.com/city-super/BungeeNeRF) 数据与 [Octree-GS](https://github.com/city-super/Octree-GS) 的 COLMAP 数据布局：
+使用 [Octree-GS 官方公开的 BungeeNeRF 数据版本](https://github.com/city-super/Octree-GS#public-data)，下载后解压：
+
+- [Google Drive：bungeenerf.tar.gz](https://drive.google.com/file/d/1nBLcf9Jrr6sdxKa1Hbd47IArQQ_X8lww/view?usp=sharing)
+- [百度网盘](https://pan.baidu.com/s/1AUYUJojhhICSKO2JrmOnCA)，提取码：`4whv`
+
+将 `--data-root` 指向解压后包含八个场景的 `bungeenerf` 目录，保留数据包内的图像、相机和点云，无需重新运行 COLMAP。目录结构如下：
 
 ```text
 /path/to/bungeenerf/
