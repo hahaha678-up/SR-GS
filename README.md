@@ -17,6 +17,42 @@
 - **采样感知成像**：结合三维平滑与二维像素滤波，处理动态 Gaussian 的尺度相关采样。
 - **渲染感知剪枝**：聚合动态 Gaussian 的透射率感知贡献，在父 Anchor 所在 LOD 内按原删除配额进行剪枝；每 10K 迭代重置统计。
 
+## 仓库结构
+
+```text
+SR-GS/
+├── run_bungeenerf.py          BungeeNeRF 单场景与八场景训练入口
+├── train.py                  训练、模型保存及最终渲染评测
+├── render.py                 加载模型并渲染图像
+├── metrics.py                计算 PSNR、SSIM 和 LPIPS
+├── arguments/                模型、渲染和优化参数
+├── scene/
+│   ├── gaussian_model.py     Anchor 表示、Mip 滤波状态及增密剪枝
+│   ├── dataset_readers.py    场景数据读取与训练/测试划分
+│   ├── colmap_loader.py      COLMAP 相机与点云解析
+│   ├── cameras.py            相机参数与变换
+│   ├── embedding.py          外观嵌入
+│   └── __init__.py           场景初始化、相机组织与模型读写
+├── gaussian_renderer/
+│   ├── __init__.py           动态 Gaussian 生成、Mip 成像与光栅化调用
+│   └── network_gui.py        训练程序使用的交互查看器通信接口
+├── utils/                    相机处理、几何计算、损失与图像指标工具
+├── submodules/
+│   ├── diff-gaussian-rasterization/
+│   │   ├── cuda_rasterizer/  CUDA 前向、反向与渲染统计
+│   │   ├── diff_gaussian_rasterization/
+│   │   │                    PyTorch 接口
+│   │   ├── third_party/glm/  GLM 数学头文件及许可
+│   │   └── setup.py          光栅化扩展编译入口
+│   └── simple-knn/           初始化所需的 CUDA 最近邻距离计算
+├── assets/                   方法框架图与效果对比图
+├── requirements.txt          Python 依赖
+├── LICENSE.md                许可证
+└── README.md                 项目说明与使用方法
+```
+
+训练从 `run_bungeenerf.py` 进入 `train.py`，由 `scene/` 管理相机和 Anchor，`gaussian_renderer/` 生成并渲染动态 Gaussian，`submodules/` 提供 CUDA 计算。Mip 成像主要位于渲染器及其 CUDA 扩展，Anchor 贡献统计与剪枝主要位于 `scene/gaussian_model.py`。这些模块共同组成 SR-GS 的训练与渲染流程。
+
 ## 安装
 
 运行平台：Linux、NVIDIA GPU、CUDA Toolkit 12.1、GCC 11。实验使用 Python 3.8、PyTorch 2.1.2 和 RTX 3090。
